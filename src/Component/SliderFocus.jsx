@@ -10,7 +10,7 @@ import Scientist from "../assets/scientist.jpg";
 
 export default function SliderFocus() {
   const scrollContainerRef = useRef(null);
-  const imageRefs = useRef([]);
+  const imageRefs = useRef();
 
   const images = [
     { src: Anna, alt: "Anna Frank" },
