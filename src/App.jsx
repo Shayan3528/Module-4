@@ -1,19 +1,16 @@
-import { useRef } from "react";
-function App(){
-const inputRef = useRef();
-
-function handleClick(){
-  inputRef.current.focus();
-}
 
 
+import SliderFocus from "./Component/SliderFocus";
 
-  return(
+function App() {
+  return (
     <>
-    <input type="text"  ref = {inputRef} />
-    <button onClick = {handleClick} > Focus input field  </button>
+      {/* <StopWatch/>
+      <ScrollView/> */}
+
+      <SliderFocus/> 
     </>
-  )
+  );
 }
 
 export default App;
