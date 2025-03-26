@@ -1,3 +1,5 @@
+import ProfileSwitch from "./Component/ProfileSwitch";
+
 export default function App() {
   // const inputRef = useRef();
 
@@ -14,6 +16,13 @@ export default function App() {
 
       {/* <Dialog /> */}
       {/* <Scroller /> */}
+
+      {/* <Comment postId="1" />
+       */}
+
+      {/* <Example /> */}
+
+      <ProfileSwitch />
     </>
   );
 }
