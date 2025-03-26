@@ -1,5 +1,5 @@
-import { useState } from "react";
-export default function Profile({ userId }) {
+import { forwardRef, useState } from "react";
+const Profile = forwardRef(({ userId }, ref) => {
   const [comment, setComment] = useState("");
 
   function handleChange(e) {
@@ -8,12 +8,13 @@ export default function Profile({ userId }) {
 
   return (
     <>
-      <span className="font-bold  inline-block mt-5 ml-4">
+      <span className=" font-bold  ml-5 mt-4 inline-block ">
         {" "}
-        Profile ID:{userId}{" "}
+        Profile ID : {userId}
       </span>
       <br />
       <input
+        ref={ref}
         type="text"
         name="text"
         value={comment}
@@ -21,9 +22,8 @@ export default function Profile({ userId }) {
         className="border border-gray-400  px-2 ml-4 mt-4 rounded "
       />
       <br />
-      <span className=" bg-gray-200 ml-4 mt-4 underline inline-block px-3 py-1 rounded ">
-        {comment}{" "}
-      </span>
+      <span className=" inline-block ml-5 mt-4 "> {comment}</span>
     </>
   );
-}
+});
+export default Profile;
