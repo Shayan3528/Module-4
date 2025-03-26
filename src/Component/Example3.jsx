@@ -1,12 +1,9 @@
 import { useState } from "react";
 
 export default function Example({ items }) {
-  const [selection, setSelection] = useState(null);
-  const [prevItem, setPrevItem] = useState(items);
-  if (items !== prevItem) {
-    setPrevItem(items);
-    setSelection(null);
-  }
+  const [selectedId, setSelectedId] = useState(null);
+  const selection = items.find((item) => item.id === selectedId) ?? null;
+
   return (
     <div className=" m-5  ">
       <ul className=" bg-gray-100 pl-10 py-3 shadow-2xl">
@@ -15,7 +12,7 @@ export default function Example({ items }) {
             <input
               type="checkbox"
               checked={item.id === selection?.id}
-              onChange={() => setSelection(item)}
+              onChange={() => setSelectedId(item.id)}
             />
             {item.title}
           </li>
