@@ -1,10 +1,19 @@
-import TodoList from "./Component/Todolist";
+export default function App() {
+  // const inputRef = useRef();
 
-export default function App(){
-  return(
-    <> 
-      <TodoList/>
-      
+  return (
+    <>
+      {/* <TodoList />
+      <Media /> */}
+      {/* <SearchButton  onClick = {()=>{
+        inputRef.current.focus();
+
+      }}/> */}
+
+      {/* <SearchInput  ref = {inputRef} /> */}
+
+      {/* <Dialog /> */}
+      {/* <Scroller /> */}
     </>
-  )
+  );
 }
