@@ -1,9 +1,20 @@
-import Example6 from "./Component/Example6";
+import { useEffect } from "react";
+import {
+  checkAuthToken,
+  loadDataFromLocalStorage,
+} from "./Utlis/getRandomInteger";
+
+let didInit = false;
 
 export default function App() {
-  return (
-    <div className=" shadow-xl rounded w-1/2 h-1/3 top-1/2 left-1/2 translate-x-1/2 translate-y-1/2">
-      <Example6 />
-    </div>
-  );
+  useEffect(() => {
+    if (!didInit) {
+      didInit = true;
+      const a = loadDataFromLocalStorage();
+      const b = checkAuthToken();
+
+      console.log(b + " " + a);
+    }
+  }, []);
+  return <></>;
 }
