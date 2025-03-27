@@ -8,20 +8,12 @@ export default function Example5() {
     post("/analytics/event", { eventName: "visit_form" });
   }, []);
 
-
-  const [jsonToSubmit, setJsonTOSubmit] = useState(null);
-  useEffect(() => {
-    if (jsonToSubmit !== null) {
-      post("/api/register", jsonToSubmit);
-    }
-  }, [jsonToSubmit]);
-
   function handleSubmit(e) {
     e.preventDefault();
-    setJsonTOSubmit({ firstName, lastName });
+    post("/api/register", { firstName, lastName });
   }
 
-  function post( url, data ) {
+  function post(url, data) {
     console.log(`Posted to url ${url} with data ${JSON.stringify(data)}`);
   }
 
