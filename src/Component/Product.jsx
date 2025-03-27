@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Product({ product, addToCart }) {
   const [notificationMessage, setNotificationMessage] = useState(null);
@@ -9,12 +9,16 @@ export default function Product({ product, addToCart }) {
   //   }
   // }, [product]);
 
+  function buyProduct() {
+    addToCart(product);
+    showNotification(`Added ${product.titile} to the shopping cart!`);
+  }
 
   function handleBuyClick() {
-    addToCart(product);
+    buyProduct();
   }
   function handleCheckoutClick() {
-    addToCart(product);
+    buyProduct();
     nevigateTo("/checkout");
   }
 
