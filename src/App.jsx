@@ -1,12 +1,11 @@
-import {
-  checkAuthToken,
-  loadDataFromLocalStorage,
-} from "./Utlis/getRandomInteger";
+import SearchResult from "./Component/SearchResult";
 
-export default function App() {
-  return <></>;
-}
+const App = () => {
+  return (
+    <>
+      <SearchResult />
+    </>
+  );
+};
 
-const a = loadDataFromLocalStorage();
-const b = checkAuthToken();
-console.log(b + " " + a);
+export default App;
