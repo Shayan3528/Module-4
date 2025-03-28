@@ -7,7 +7,9 @@ export default function SearchResult() {
 
   return (
     <div>
+        
       <div>
+
         <input
           type="text"
           value={query}
