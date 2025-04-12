@@ -1,132 +1,78 @@
-// import { useState } from "react";
-// import ChatRoom from "./Component/ChatRoom";
+import { useEffect, useState } from "react";
+import { createConnection, sendMessage } from "./Utlis/Chat";
 
-// export default function App() {
-//   const [showModal, setShowModal] = useState(true);
-//   const [roomId, setRoomId] = useState("general");
-//   const [serverUrl, setServerUrl] = useState("https://localhost:1234");
+const serverUrl = "https://localhost:1234";
 
-//   return (
-//     <div className="relative ml-10 mt-10 w-[400px] h-[400px] border border-gray-500 rounded  shadow-xl ">
-//       <button
-//         className="px-3  bg-blue-500 text-white rounded mt-5 ml-5"
-//         onClick={() => setShowModal(!showModal)}
-//       >
-//         {showModal ? "Hide Modal" : "Show Modal"}
-//       </button>
-//       <hr className="mx-5 mt-2 border-gray-400 " />
-
-//       <div>
-//         <input
-//           type="text"
-//           value={serverUrl}
-//           onChange={(e) => setServerUrl(e.target.value)}
-//           placeholder="Enter server Url"
-//           className="border border-gray-400 rounded px-3 mx-5 my-5"
-//         />
-//       </div>
-
-//       {showModal && (
-//         <div className="absolute top-30 left-5 right-5 w-3/4 h-2/4 bg-gray-200 shadow-2xl">
-//           <select
-//             value={roomId}
-//             onChange={(e) => setRoomId(e.target.value)}
-//             className="mx-2 my-2 border border-gray-400 px-3 rounded focus:outline-none focus:border-green-500 focus:border-2 bg-gray-100 "
-//           >
-//             <option value="General">General</option>
-//             <option value="Travel">Travel</option>
-//             <option value="Music">Music</option>
-//           </select>
-
-//           <div className="mx-3 flex justify-center itens-center mt-10">
-//             <ChatRoom roomId={roomId} serverUrl={serverUrl} />
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// import { useRef } from "react";
-
-// export default function App() {
-//   let ref = useRef(0);
-//   function handleClick() {
-//     ref.current = ref.current + 1;
-//     console.log(ref.current);
-//   }
-
-//   return (
-//     <>
-//       <button
-//         onClick={handleClick}
-//         className=" border border-gray-400 px-2 rounded"
-//       >
-//         {" "}
-//         Click me{" "}
-//       </button>
-
-//       <p> {ref.current}</p>
-//     </>
-//   );
-// }
-
-import {  useState } from "react";
-import { createTodo, initialTodos } from "./Utlis/todo";
-
-export default function App() {
-  const [todos, setTodos] = useState(initialTodos);
-  const [showActive, setShowActive] = useState(false);
-  const activeTodos = todos.filter((todo) => !todo.completed);
-  const visibleTodos = showActive ? activeTodos : todos;
-
-  return (
-    <div className="border border-gray-400 rounded shadow-xl w-[350px] h-auto ml-45 mt-45 px-10 py-3">
-      <label className="flex  gap-2 py-1">
-        <input
-          type="checkbox"
-          checked={showActive}
-          onChange={(e) => setShowActive(e.target.checked)}
-        />
-        Show only active todos
-      </label>
-      <NewTodo onAdd={(newTodo) => setTodos([...todos, newTodo])} />{" "}
-      {/** Create new Todo */}
-      <ul className="px-6 py-2">
-        {visibleTodos.map((todo) => (
-          <li key={todo.id} className="list-disc ">
-            {todo.completed ? <s>{todo.text}</s> : todo.text}
-          </li>
-        ))}
-      </ul>
-      <footer>
-        {activeTodos.length} todos left 
-      </footer>
-    </div>
-  );
-}
-
-function NewTodo({ onAdd }) {
-  const [text, setText] = useState("");
-
-  function handleAddClick() {
-    setText("");
-    onAdd(createTodo(text));
+function ChatRoom({roomId}) {
+  const [inputText, setInputText] = useState();
+  function handleChange(e) {
+    e.preventDefault();
+    sendMessage(inputText);
+    setInputText("");
   }
+
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId);
+    connection.connect();
+
+    return () => connection.disconnect();
+  }, [roomId]);
 
   return (
     <>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="border border-gray-400 rounded px-2 mr-3"
-      />
-      <button
-        className="border border-gray-400 rounded  px-3"
-        onClick={handleAddClick}
-      >
-        Add
-      </button>
+      <div>
+        <p className="mb-2 font-bold "> Welcome to the {roomId}!</p>
+
+        <div>
+          <input
+            type="text"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            placeholder="Message"
+            className="border boder-gray-400 rounded px-1 py-0.5 w-[150px]"
+          />
+          <button
+            onClick={handleChange}
+            className="border border-gray-400 px-2 ml-4 rounded "
+          >
+            {" "}
+            Send{" "}
+          </button>
+        </div>
+      </div>
     </>
+  );
+}
+
+
+export default function App() {
+  const [roomId, setRoomId] = useState();
+  const [show, setShow] = useState(false);
+
+  return (
+    <div className="mt-10 ml-10 border border-gray-400 rounded w-[450px] px-3 py-5 shadow-2xl flex flex-col gap-4">
+      <label>
+        Choose the Chat room :
+        <select
+          value={roomId}
+          onChange={(e) => setRoomId(e.target.value)}
+          className="border border-gray-300 px-3 rounded ml-2 "
+        >
+          <option>Enter Value</option>
+          <option value="Travel">Travel</option>
+          <option value="General">General</option>
+          <option value="Music">Music</option>
+        </select>
+        <button
+          onClick={() => setShow(!show)}
+          className=" border border-gray-300 ml-4 rounded px-3"
+        >
+          {show ? "Close Chat" : "OpenChat"}
+        </button>
+      </label>
+
+      <hr className="border-gray-400 " />
+      {show && <ChatRoom roomId={roomId} />}
+    </div>
   );
 }
