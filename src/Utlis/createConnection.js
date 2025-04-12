@@ -8,3 +8,7 @@ export default function createConnection(serverUrl, roomId) {
     },
   };
 }
+
+export function logVisited(roomId) {
+  console.log(`User visited room ${roomId}`);
+}
