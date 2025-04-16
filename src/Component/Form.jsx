@@ -8,15 +8,13 @@ export default function Form() {
     <div className="flex flex-col gap-2 m-3">
       <input
         type="text"
-        value={firstName.value}
-        onChange={firstName.onChange}
+        {...firstName}
         className="border border-gray-400 rounded px-2 w-1/5 "
         placeholder="First Name"
       />
       <input
         type="text"
-        value={lastName.value}
-        onChange={lastName.onChange}
+        {...lastName}
         className="border border-gray-400 rounded px-2 w-1/5 "
         placeholder="Last Name"
       />
